@@ -42,7 +42,7 @@ router.post('/',(req,res)=>{
             res.send({"message":"duplicate entity"})
             //throw err;
         }else{
-            res.send({"message":"user created"})
+            res.send({"message":"customer added"})
         }
     })
 })
@@ -53,15 +53,15 @@ router.put('/',(req,res)=>{
     const name=req.body.name;
     const address=req.body.address;
     const contact=req.body.contact;
-    var query="UPDATE user SET name=?,address=?,contact=? WHERE id=?";
+    var query="UPDATE customer SET name=?,address=?,contact=? WHERE id=?";
     connection.query(query,[name,address,contact,id],(err,rows)=>{
         if(err){
             throw err;
         }else{
             if(rows.affectedRows>0 ){
-                res.send({"message": "user updated"});
+                res.send({"message": "customer updated"});
             }else{
-                res.send({"message":"user not found"})
+                res.send({"message":"customer not found"})
             }
         }
     })
@@ -71,13 +71,13 @@ router.put('/',(req,res)=>{
 //delete
 router.delete('/:id',(req,res)=>{
     const id=req.params.id;
-    var query="DELETE FROM user WHERE id=?"
+    var query="DELETE FROM customer WHERE id=?"
     connection.query(query,[id],(err,rows)=>{
         if(err) console.log(err)
         if(rows.affectedRows>0){
-            res.send({"message":"user deleted"})
+            res.send({"message":"customer deleted"})
         }else{
-            res.send({"message":"user not found"})
+            res.send({"message":"customer not found"})
         }
     })
 })
@@ -85,7 +85,7 @@ router.delete('/:id',(req,res)=>{
 //search
 router.get('/:id',(req,res)=>{
     const id=req.params.id;
-    var query="SELECT * FROM user WHERE id=?"
+    var query="SELECT * FROM customer WHERE id=?"
     connection.query(query,[id],(err,rows)=>{
         if(err) console.log(err)
         res.send(rows)
