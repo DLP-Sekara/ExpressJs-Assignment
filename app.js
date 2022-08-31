@@ -1,10 +1,11 @@
 const express=require('express');
+const app=express();
+const port=4000;
+
 const customer=require('./routes/customer')
 const item=require('./routes/item')
 const order=require('./routes/orders')
 const orderDetails=require('./routes/orderDetails')
-const app=express();
-const port=4000;
 
 app.use(express.json())
 app.use('/customer',customer)

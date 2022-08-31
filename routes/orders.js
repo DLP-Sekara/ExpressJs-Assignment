@@ -3,6 +3,7 @@ const router=express.Router();
 
 const db=require('../config/db.config')
 const mysql = require('mysql')
+const orderDetails=require("./orderDetails")
 const connection = mysql.createConnection(db.database);
 connection.connect(function (err) {
     if(err){
@@ -11,13 +12,25 @@ connection.connect(function (err) {
         console.log("connected to the mysql server")
         var userTable="CREATE TABLE IF NOT EXISTS orders (oid varchar(255) PRIMARY KEY,customerName varchar(255),date varchar(255),totalPrice DOUBLE,CONSTRAINT FOREIGN KEY (customerName) REFERENCES customer (id) )"
         connection.query(userTable,function (err, result) {
-            if(err) throw err;
+            if (err) throw err;
             //console.log(result)
-            if(result.warningCount===0){
+            if (result.warningCount === 0) {
                 console.log("orders table crated");
-            }
 
+           /* const oid = "05";
+            const code = "i001";
+            const qty = 5;
+            const unitPrice = 1000.0;
+            var query = "INSERT INTO orderDetails (oid,code,qty,unitPrice) VALUES (?,?,?,?)";
+            connection.query(query, [oid, code, qty, unitPrice], (err) => {
+                if (err) throw err;
+                console.log("order details tika complete")
+            })*/
+
+        }
         })
+
+
     }
 })
 
